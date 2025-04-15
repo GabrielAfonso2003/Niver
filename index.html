@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Aniversário!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <video autoplay muted loop id="bg-video">
+        <source src="wallpaper.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos em HTML5.
+    </video>
+      
+  <audio id="bgm" loop>
+    <source src="HappyBirthday(8-Bit).mp3" type="audio/mpeg">
+  </audio>
+
+  <canvas id="birthday"></canvas>
+  <canvas id="confetti"></canvas>
+
+  <div class="container">
+    <h1 class="title">Feliz Aniversário, <span id="nome">THAY THAY!</span> 🎉</h1>
+
+    <button onclick="mostrarMensagem()">Aperte</button>
+
+    <div id="mensagem" class="mensagem-escondida">
+        <p>Que seu dia seja tão mágico quanto uma aventura em Teyvat!</p>
+        <p>Que suas aventuras sejam repletas de momentos incríveis, aliados leais,
+        e que nunca falte resina para aproveitar todas as recompensas (so def%) da vida! 🗺️💫</p>
+        <p>Feliz aniversário, thay! Que os próximos banners da vida tragam só 5 (oia, a qiqi❄️) estrelas pra você. ✨🎁 </p>
+        <p>Que os Arcontes abençoem seu novo ciclo!</p>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
