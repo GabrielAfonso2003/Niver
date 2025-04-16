@@ -1,82 +1,55 @@
- 
+// Define o volume de 0.0 (mudo) até 1.0 (volume máximo)
+document.getElementById('bgm').volume = 0.3;  // 30% do volume
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  text-align: center;
-  display: flex; 
-  align-items: center; 
-  flex-direction: column;
-}
-
-  #bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover; 
-    z-index: -1;
-    pointer-events: none;
-    transform: scale(1.2); 
+function mostrarMensagem() {
+    document.getElementById('mensagem').style.display = 'block';
+    document.getElementById('bgm').play();
+    startConfetti();
   }
   
-  .container {
-    position: relative;
-    top: 5%;
-    padding: 2px;
-    /* background-color: rgba(0, 0, 0, 0.5);  */
-    border-radius: 20px;
-    display: inline-block;
-    max-width: 80%;
-    
-  }  
+  // Efeito de confete (simples)
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let confettis = [];
   
-  .title {
-    font-size: 3em; /* Aumentado */
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); 
-    margin-bottom: 20px;
-  }  
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
   
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 8px;
-    background-color: #4a90e2;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  function createConfetti() {
+    for (let i = 0; i < 100; i++) {
+      confettis.push({
+        x: Math.random() * width,
+        y: Math.random() * height - height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 5 + 1,
+        color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+        tilt: Math.random() * 10 - 10
+      });
+    }
   }
   
-  button:hover {
-    background-color: #3b78c2;
+  function drawConfetti() {
+    ctx.clearRect(0, 0, width, height);
+    confettis.forEach((c, i) => {
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.fillStyle = c.color;
+      ctx.fill();
+      c.y += c.d;
+      if (c.y > height) {
+        c.y = -10;
+        c.x = Math.random() * width;
+      }
+    });
   }
   
-  .mensagem-escondida {
-    display: none;
-    margin-top: 30px;
-    font-size: 1em; /* Aumentado */
-    color: #fff;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
-    animation: fadeIn 2s ease forwards;
-  }
-   
-  canvas#confetti {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  function startConfetti() {
+    if (confettis.length === 0) createConfetti();
+    setInterval(drawConfetti, 33);
   }
 
